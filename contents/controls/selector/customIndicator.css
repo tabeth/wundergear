@@ -1,0 +1,52 @@
+.custom-indicator {
+    position: absolute;
+    width: 182px;
+    height: 182px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 182px;
+    font-size: 28px;
+    /*
+        If you want to add click or other various event to custom indicator,
+        you should add 'z-index' to custom indicator css as upper than 3, layer has z-index value is 3.
+    */
+    z-index: 100;
+}
+.custom-indicator .main-text {
+    position: relative;
+    height: 60%;
+    line-height: 135px;
+    font-size: 35px;
+    color: #ffffff;
+}
+.custom-indicator .sub-text {
+    position: relative;
+    height: 40%;
+    line-height: 35px;
+    font-size: 20px;
+    color: #88b1ff;
+}
+.custom-indicator-arrow {
+    position: absolute;
+    width: 182px;
+    height: 182px;
+    top: 50%;
+    left: 50%;
+    margin: -91px;
+    border-radius: 50%;
+    border: solid;
+}
+.custom-indicator-arrow::before {
+    content: "";
+    position:absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 3px #88b1ff;
+    background-color: #fafafa;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

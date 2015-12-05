@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="../../../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet"  href="../../../css/style.css">
+</head>
+<body>
+	<div class="ui-page">
+		<header class="ui-header">
+			<h2 class="ui-title">Radio 2 List</h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview">
+				<li class="li-has-multiline li-has-radio">
+					<label>
+						Wi-fi
+						<span class="ui-li-sub-text li-text-sub">Overall size of fonts</span>
+						<input type="radio" name="radio-sample" checked="checked"/>
+					</label>
+				</li>
+				<li class="li-has-multiline li-has-radio">
+					<label>
+						Bluetooth
+						<span class="ui-li-sub-text li-text-sub">Screen savers and other settings</span>
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+				<li class="li-has-multiline li-has-radio disabled">
+					<label>
+						Data usage (disabled)
+						<span class="ui-li-sub-text li-text-sub">Overall size of fonts</span>
+						<input type="radio" name="radio-sample" disabled="disabled"/>
+					</label>
+				</li>
+				<li class="li-has-multiline li-has-radio">
+					<label>
+						Flight mode
+						<span class="ui-li-sub-text li-text-sub">Overall size of fonts</span>
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../lib/tau/wearable/js/tau.min.js"></script>
+</html>
