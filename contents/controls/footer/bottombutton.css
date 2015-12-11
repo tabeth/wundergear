@@ -1,4 +1,0 @@
-.ui-bottom-button .ui-btn::before {
-	background-color: rgba(0, 149, 255, 1);
-	-webkit-mask-image: url("images/tw_list_add_holo_dark.png");
-}

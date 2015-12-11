@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/UIComponents" version="1.0.0" viewmodes="fullscreen">
-  <!--<tizen:application id="fUXzGnpw0v.UIComponents" package="fUXzGnpw0v" required_version="2.3"/>-->
-    <tizen:application id="one.UIComponents" package="one" required_version="2.3"/>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/WunderGear" version="1.0.0" viewmodes="fullscreen">
+    <access origin="http://wunderlist.com" subdomains="true"/>
+    <access origin="wss://socket.wunderlist.com" subdomains="true"/>
+    <access origin="https://wunderlist.com" subdomains="true"/>
+    <tizen:application id="DFa8rAonp3.WunderGear" package="DFa8rAonp3" required_version="2.2"/>
+    <author>beni</author>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal"/>
     <icon src="icon.png"/>
-    <name>UIComponents</name>
+    <name>WunderGear</name>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/download"/>
     <tizen:profile name="wearable"/>
-    <tizen:setting hwkey-event="enable"/>
+    <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/>
 </widget>

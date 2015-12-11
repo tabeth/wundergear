@@ -1,0 +1,18 @@
+!SESSION 2015-12-05 02:38:03.679 -----------------------------------------------
+eclipse.buildId=2.4.0 Rev1
+java.version=1.8.0_60
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en
+Framework arguments:  -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+Command-line arguments:  -os linux -ws gtk -arch x86 -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+
+!ENTRY org.tizen.common.ui.Startup 1 0 2015-12-05 02:38:29.283
+!MESSAGE SDK Information: Path [/home/nkangoh/tizen-sdk], Data Path [/home/nkangoh/tizen-sdk-data.1], Platform Path [/home/nkangoh/tizen-sdk/platforms/tizen-2.4/mobile]
+
+!ENTRY org.tizen.common.connection.explorer.ConnectionExplorerLabelProvider 4 0 2015-12-05 02:38:33.709
+!MESSAGE [2015.12.05 02:38:33][ERROR] ConnectionExplorerLabelProvider.java(106) - Failed to get platform capability
+
+
+!ENTRY org.tizen.common.connection.explorer.ConnectionExplorerLabelProvider 4 0 2015-12-05 02:38:33.821
+!MESSAGE [2015.12.05 02:38:33][ERROR] ConnectionExplorerLabelProvider.java(106) - Failed to get platform capability
+
