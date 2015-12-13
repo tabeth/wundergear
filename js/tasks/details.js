@@ -1,72 +1,62 @@
 var DetailsTaskModel = function () {
-  /* Observerables */
-  var self = this;
-  self.taskDetails = ko.observable();
-  self.taskComments = ko.observable({'task_id': '', 'text': ''});
-  self.subtasks = ko.observable({'task_id': '', 'title': ''});
-  
-  /* Helper functions */
-  var saveTaskDetails = function(taskData, statusCode) {
-    self.taskDetails(taskData);
-  };
+    /* Observerables */
+    var self = this;
+    self.taskId = localStorage.getItem('taskId');
+    self.taskDetails = ko.observable({'task_id': '', 'title': ''});
+    self.taskComments = ko.observableArray();
+    self.taskSubtasks = ko.observableArray();
+    self.cleanDate = function(dirtyDate) {
+    	return new Date(dirtyDate).toLocaleString();
+    };
 
-  var saveCommentDetails = function(taskCommentsData, statusCode) {
-	self.taskComments(taskCommentsData);
-  };
-  
-  var saveSubtaskDetails = function(subtasksData, statusCode) {
-    self.subtasks(subtasksData);
-  };
-  
-  self.changeData = function(property, attribute) {
-    var oldTask = self.taskDetails();
-    var newTask = oldTask;
-  };
+    /* Helper functions */
+    var saveTaskDetails = function() {
+	WunderlistAPI.http.tasks.getID(self.taskId)
+	.done(function(taskDetails, statusCode){ self.taskDetails(taskDetails); })
+	.fail(function(resp, code) { });
+    };
 
-  WunderlistAPI.initialized.done(function() {
-    WunderlistAPI.http.tasks.getID(localStorage.getItem('taskId'))
-    .done(saveTaskDetails, saveCommentDetails, saveSubtaskDetails)
-    .fail(function(resp, code) { });
-  });
+    var saveCommentDetails = function() {
+    	WunderlistAPI.http.task_comments.forTask(self.taskId)
+	.done(function(taskComments, statusCode){ debugger; self.taskComments(taskComments); })
+	.fail(function(resp, code) { });
+    };
 
+    var saveSubtaskDetails = function() {
+    	WunderlistAPI.http.subtasks.forTask(self.taskId)
+	.done(function(subtasks, statusCode){ self.taskSubtasks(subtasks); })
+	.fail(function(resp, code) { });
+    };
 
-  self.swipeList = ko.observable();
-  self.makeSwipeList = function(){
-	 self.swipeList(tau.widget.SwipeList(listElement, {
-		swipeTarget: "li",
-		swipeElement: ".ui-swipelist",
-	 })) ;
-  };
-  
-  self.destroySwipeList = function() {
-	 self.swipeList().destroy();
-	 self.swipeList(null);
-  };
- 
+    self.changeData = function(property, attribute) {
+	var oldTask = self.taskDetails();
+	var newTask = oldTask;
+    };
+
+    WunderlistAPI.initialized.done(function() {
+    	saveTaskDetails();
+    	saveCommentDetails();
+    	saveSubtaskDetails();
+    });
+
+    self.sectionChanger = ko.observable();
+    self.changer = document.getElementById('tabsectionchanger');
+    self.makeSectionChanger = function() {
+	self.sectionChanger(
+		tau.widget.SectionChanger(self.changer, {
+		    circular: true,
+		    orientation: 'horizontal',
+		    scrollbar: 'tab'
+		})
+	);
+    };
+
+    self.destroySectionChanger = function() {
+	self.sectionChanger().destroy();
+	self.sectionChanger(null);
+    };
+
 };
-///*global tau */
-//(function(){
-//
-//	var page = document.getElementById( "swipelist" ),
-//		listElement = page.getElementsByClassName( "ui-swipelist-list" )[0],
-//		swipeList;
-//
-//	page.addEventListener( "pagebeforeshow", function() {
-//		// make SwipeList object
-//		swipeList = tau.widget.SwipeList( listElement, {
-//			swipeTarget: "li",
-//			swipeElement: ".ui-swipelist"
-//		});
-//	});
-//
-//	page.addEventListener( "pagebeforehide", function() {
-//		// release object
-//		swipeList.destroy();
-//	});
-//
-//}());
-//};
-//
-  
-var detailsForTask = new DetailsTaskModel();
-ko.applyBindings(DetailsTaskModel, document.getElementById('details-for-task'));
+
+    var detailsForTask = new DetailsTaskModel();
+    ko.applyBindings(DetailsTaskModel, document.getElementById('details-for-task'));
