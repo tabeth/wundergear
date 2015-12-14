@@ -38,12 +38,7 @@
 		<!--  Subtasks go here -->
 		<div class="ui-content">
 		    <ul class="ui-listview" data-bind="foreach: taskSubtasks">
-			<li class="li-has-multiline li-has-checkbox">
-			<label>
-			    <span data-bind="text: $data.title">
-			    <input type="checkbox" data-bind="click: $parent.processSubtaskCheck"/>
-			</label>
-			</li>
+			<li><a href="#subtasks-popup" data-bind="text: $data.title" data-rel="popup"></a></li>
 		    </ul>
 		</div>
 	    </section>
@@ -67,6 +62,14 @@
 	</div>
     </div>
 
+
+	<div id="subtasks-popup" class="ui-popup">
+	    <div class="ui-popup-content">Subtask options</div>
+		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
+			<a id="2btnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Delete</a>
+			<a id="2btnPopup-ok" href="#" class="ui-btn btn-icon-check" data-rel="back">Complete</a>
+		</div>
+	</div>
     <script src="../js/tasks/details.js"></script>
 </div>
 

@@ -18,16 +18,18 @@ var DetailsTaskModel = function () {
 
     var saveCommentDetails = function() {
     	WunderlistAPI.http.task_comments.forTask(self.taskId)
-	.done(function(taskComments, statusCode){ debugger; self.taskComments(taskComments); })
+	.done(function(taskComments, statusCode){ self.taskComments(taskComments); })
 	.fail(function(resp, code) { });
     };
 
     var saveSubtaskDetails = function() {
     	WunderlistAPI.http.subtasks.forTask(self.taskId)
-	.done(function(subtasks, statusCode){ self.taskSubtasks(subtasks); })
+	.done(function(subtasks, statusCode){ debugger; self.taskSubtasks(subtasks); })
 	.fail(function(resp, code) { });
     };
 
+    var markSubtaskComplete = function(subtaskId) {
+    };
     self.changeData = function(property, attribute) {
 	var oldTask = self.taskDetails();
 	var newTask = oldTask;
@@ -39,6 +41,29 @@ var DetailsTaskModel = function () {
     	saveSubtaskDetails();
     });
 
+    self.processSubtaskCheck = function(subtaskIndex) {
+	// Show a popup
+	// mark the item as complete
+	var currentSubtask = self.taskSubtasks()[subtaskIndex];
+	var revision = currentSubtask.revision;
+	var subtaskId = currentSubtask.id;
+	currentSubtask.completed = true;
+    	WunderlistAPI.http.subtasks.update(subtaskId, revision + 1, currentSubtask)
+    	    .done(function() {
+    	    	// show pop up marking item as complete
+    	    	// then delete from the array;
+    	    	self.taskSubtasks.remove(currentSubtask)
+	    })
+
+	    .fail(function(resp, code) {
+	    	// show failure pop up
+	    });
+
+	
+    };
+
+
+    /* Animations for tab switching */
     self.sectionChanger = ko.observable();
     self.changer = document.getElementById('tabsectionchanger');
     self.makeSectionChanger = function() {
