@@ -54,7 +54,7 @@
 		    <ul class="ui-listview" >
 			<!--ko foreach: taskComments -->
 			<li class="li-has-multiline li-has-2line-sub">
-			<a>
+			<a href="#comments-popup" data-bind="click: setCurrentComment($index())">
 			    <span data-bind="text: $data.text"></span>
 			    <span class="ui-li-sub-text li-text-sub" data-bind="text: $data.author.name"></span>
 			    <span class="ui-li-sub-text li-text-sub" data-bind="text: cleanDate($data.created_at)"></span>
@@ -75,21 +75,24 @@
 			    class="ui-btn btn-icon-cancel" 
 			    data-bind="click: deleteSubtask"
 			    data-rel="back">Delete</a>
-			<a id="2btnPopup-ok" href="#completedToast"
-			    class="ui-btn btn-icon-check" 
+			<a id="2btnPopup-ok" href="#"
+			    class="ui-btn btn-icon-check"
 			    data-bind="click: toggleSubtask"
-			    data-rel="back">Complete</a>
+			    data-rel="back">Toggle Complete</a>
+		</div>
+	</div>
+
+	<div id="comments-popup" class="ui-popup">
+	    <div class="ui-popup-content"><h2>Comment options</h2></div>
+	    <div class="ui-popup-footer ui-bottom-button">
+			<a id="2btnPopup-cancel" href="#"
+			    class="ui-btn btn-icon-cancel"
+			    data-bind="click: deleteComment"
+			    data-rel="back">Delete</a>
 		</div>
 	</div>
 
 
-
-	<div id="completedToast" class="ui-popup ui-popup-toast ui-popup-toast-graphic">
-		<div class="ui-popup-content">
-			<div class="ui-popup-toast-icon btn-icon-toast-check">check</div>
-			Subtask deleted
-		</div>
-	</div>
 
     <script src="../js/tasks/details.js"></script>
 </div>

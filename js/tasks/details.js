@@ -62,13 +62,41 @@ var DetailsTaskModel = function () {
     };
 
     self.subtaskIndex = ko.observable();
-    self.setCurrentSubtask = function(index){
+    self.setCurrentSubtask = function(index) {
     	self.subtaskIndex(index);
     };
 
     self.deleteSubtask = function() {
-    	alert('deleted');
+    	var currentSubtask = self.taskSubtasks()[self.subtaskIndex()];
+    	var subtaskId = currentSubtask.id;
+    	var revision = currentSubtask.revision;
+    	WunderlistAPI.http.subtasks.deleteID(subtaskId, revision)
+    	    .done(function() {
+    	    	self.taskSubtasks.remove(currentSubtask);
+	    })
+
+	    .fail(function(resp, code) {});
+
     };
+
+    /* Comments actions */
+    self.commentIndex = ko.observable();
+    self.setCurrentComment = function(index) {
+    	self.commentIndex(index);
+    };
+
+    self.deleteComment = function() {
+    	var currentComment = self.taskComments()[self.commentIndex()];
+    	var commentID = currentComment.id;
+    	var revision = currentComment.revision;
+    	WunderlistAPI.http.task_comments.deleteID(commentID, revision)
+    	    .done(function() {
+    	    	self.taskComments.remove(currentComment);
+	    })
+	    
+	    .fail(function(resp, code) {});
+    };
+
 
     /* Animations for tab switching */
     self.sectionChanger = ko.observable();
