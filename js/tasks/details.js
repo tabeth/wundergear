@@ -41,6 +41,40 @@ var DetailsTaskModel = function () {
     });
 
 
+    /* Task actions */
+
+    self.toggleTask = function() {
+	var currentTask = self.taskDetails();
+	var taskId = currentTask.id;
+	var revision = currentTask.revision;
+	currentTask.completed = currentTask.completed === true ? false : true;
+	WunderlistAPI.http.tasks.update(taskId, revision, currentTask)
+	    .done(function() {
+	    	self.taskDetails(currentTask);
+	    })
+
+	    .fail(function(resp, code) {} );
+
+    };
+
+    self.starTask = function() {
+	var currentTask = self.taskDetails();
+	var taskId = currentTask.id;
+	var revision = currentTask.revision;
+	currentTask.starred = currentTask.starred === true ? false : true;
+	WunderlistAPI.http.tasks.update(taskId, revision, currentTask)
+	    .done(function() {
+	    	self.taskDetails(currentTask);
+	    })
+
+	    .fail(function(resp, code) {} );
+
+    };
+
+    self.deleteTask = function() {
+
+    };
+
     /* Subtask actions */
     self.toggleSubtask = function() {
 	var currentSubtask = self.taskSubtasks()[self.subtaskIndex()];
