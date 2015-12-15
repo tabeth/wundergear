@@ -5,6 +5,7 @@ var DetailsTaskModel = function () {
     self.taskDetails = ko.observable({'task_id': '', 'title': ''});
     self.taskComments = ko.observableArray();
     self.taskSubtasks = ko.observableArray();
+    self.taskSubtasks.extend({ notify: 'always' });
     self.cleanDate = function(dirtyDate) {
     	return new Date(dirtyDate).toLocaleString();
     };
@@ -24,12 +25,10 @@ var DetailsTaskModel = function () {
 
     var saveSubtaskDetails = function() {
     	WunderlistAPI.http.subtasks.forTask(self.taskId)
-	.done(function(subtasks, statusCode){ debugger; self.taskSubtasks(subtasks); })
+	.done(function(subtasks, statusCode){ self.taskSubtasks(subtasks); })
 	.fail(function(resp, code) { });
     };
 
-    var markSubtaskComplete = function(subtaskId) {
-    };
     self.changeData = function(property, attribute) {
 	var oldTask = self.taskDetails();
 	var newTask = oldTask;
@@ -41,27 +40,35 @@ var DetailsTaskModel = function () {
     	saveSubtaskDetails();
     });
 
-    self.processSubtaskCheck = function(subtaskIndex) {
-	// Show a popup
-	// mark the item as complete
-	var currentSubtask = self.taskSubtasks()[subtaskIndex];
+
+    /* Subtask actions */
+    self.toggleSubtask = function() {
+	var currentSubtask = self.taskSubtasks()[self.subtaskIndex()];
+	var subtaskObservable = currentSubtask;
 	var revision = currentSubtask.revision;
 	var subtaskId = currentSubtask.id;
-	currentSubtask.completed = true;
-    	WunderlistAPI.http.subtasks.update(subtaskId, revision + 1, currentSubtask)
+	currentSubtask.completed = currentSubtask.completed === true ? false : true;
+    	WunderlistAPI.http.subtasks.update(subtaskId, revision, currentSubtask)
     	    .done(function() {
-    	    	// show pop up marking item as complete
-    	    	// then delete from the array;
-    	    	self.taskSubtasks.remove(currentSubtask)
+    	    	// Naive force update of DOM
+    	    	self.taskSubtasks.remove(currentSubtask);
+    	    	currentSubtask.revision += 1;
+    	    	self.taskSubtasks.push(currentSubtask);
 	    })
 
-	    .fail(function(resp, code) {
-	    	// show failure pop up
-	    });
+	    .fail(function(resp, code) {});
 
 	
     };
 
+    self.subtaskIndex = ko.observable();
+    self.setCurrentSubtask = function(index){
+    	self.subtaskIndex(index);
+    };
+
+    self.deleteSubtask = function() {
+    	alert('deleted');
+    };
 
     /* Animations for tab switching */
     self.sectionChanger = ko.observable();

@@ -38,7 +38,12 @@
 		<!--  Subtasks go here -->
 		<div class="ui-content">
 		    <ul class="ui-listview" data-bind="foreach: taskSubtasks">
-			<li><a href="#subtasks-popup" data-bind="text: $data.title" data-rel="popup"></a></li>
+			<li data-bind="style: { 'text-decoration': $data.completed ? 'line-through' : 'none' }">
+			    <a href="#subtasks-popup"
+			      data-bind="text: $data.title,
+					 click: setCurrentSubtask($index())"
+			      data-rel="popup"></a>
+			  </li>
 		    </ul>
 		</div>
 	    </section>
@@ -64,12 +69,28 @@
 
 
 	<div id="subtasks-popup" class="ui-popup">
-	    <div class="ui-popup-content">Subtask options</div>
+	    <div class="ui-popup-content"><h2>Subtask options</h2></div>
 		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
-			<a id="2btnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Delete</a>
-			<a id="2btnPopup-ok" href="#" class="ui-btn btn-icon-check" data-rel="back">Complete</a>
+			<a id="2btnPopup-cancel" href="#" 
+			    class="ui-btn btn-icon-cancel" 
+			    data-bind="click: deleteSubtask"
+			    data-rel="back">Delete</a>
+			<a id="2btnPopup-ok" href="#completedToast"
+			    class="ui-btn btn-icon-check" 
+			    data-bind="click: toggleSubtask"
+			    data-rel="back">Complete</a>
 		</div>
 	</div>
+
+
+
+	<div id="completedToast" class="ui-popup ui-popup-toast ui-popup-toast-graphic">
+		<div class="ui-popup-content">
+			<div class="ui-popup-toast-icon btn-icon-toast-check">check</div>
+			Subtask deleted
+		</div>
+	</div>
+
     <script src="../js/tasks/details.js"></script>
 </div>
 
