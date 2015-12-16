@@ -50,6 +50,7 @@ var DetailsTaskModel = function () {
 	currentTask.completed = currentTask.completed === true ? false : true;
 	WunderlistAPI.http.tasks.update(taskId, revision, currentTask)
 	    .done(function() {
+    	    	currentTask.revision += 1;
 	    	self.taskDetails(currentTask);
 	    })
 
@@ -64,6 +65,7 @@ var DetailsTaskModel = function () {
 	currentTask.starred = currentTask.starred === true ? false : true;
 	WunderlistAPI.http.tasks.update(taskId, revision, currentTask)
 	    .done(function() {
+    	    	currentTask.revision += 1;
 	    	self.taskDetails(currentTask);
 	    })
 
@@ -133,9 +135,20 @@ var DetailsTaskModel = function () {
 
 
     /* Animations for tab switching */
+    function clickHandler(event) {
+	tau.openPopup(popup);
+    }
+
+    // Options popup handling
+    var page = document.querySelector("#details-for-task");
+    var popup = page.querySelector("#task-options-popup");
+    var handler = page.querySelector(".ui-more");
+    var clickHandlerBound = null;
+    var radius = window.innerHeight/2 * 0.8;
+
     self.sectionChanger = ko.observable();
     self.changer = document.getElementById('tabsectionchanger');
-    self.makeSectionChanger = function() {
+    self.setupAnimations = function() {
 	self.sectionChanger(
 		tau.widget.SectionChanger(self.changer, {
 		    circular: true,
@@ -143,14 +156,21 @@ var DetailsTaskModel = function () {
 		    scrollbar: 'tab'
 		})
 	);
+
+	clickHandlerBound = clickHandler.bind(null);
+	handler.addEventListener("click", clickHandlerBound);
     };
 
-    self.destroySectionChanger = function() {
+    self.takeDownAnimations = function() {
 	self.sectionChanger().destroy();
 	self.sectionChanger(null);
     };
 
+    self.removeListener = function() {
+	handler.removeEventListener("click", clickHandlerBound);
+    };
+
 };
 
-    var detailsForTask = new DetailsTaskModel();
-    ko.applyBindings(DetailsTaskModel, document.getElementById('details-for-task'));
+var detailsForTask = new DetailsTaskModel();
+ko.applyBindings(DetailsTaskModel, document.getElementById('details-for-task'));

@@ -19,16 +19,16 @@
 <body>
 <div id="details-for-task" class="ui-page"
     data-enable-page-scroll="false"
-    data-bind="event: { pagebeforeshow: makeSectionChanger, pagehide: destroySectionChanger }">
+    data-bind="event: { pagebeforeshow: setupAnimations, pagebeforehide: removeListener, pagehide: takeDownAnimations }">
     <link rel="stylesheet"  href="../css/sectionchanger.css">
     <header class="ui-header">
-	<h2 class="ui-title">Current Task</h2>
-	<h2 class="ui-title" data-bind="if: taskDetails().completed"> - Completed</h2>
+	<h2 class="ui-title" data-bind="if: taskDetails().completed">Current Task - Completed</h2>
+	<h2 class="ui-title" data-bind="if: taskDetails().starred">Current Task - Starred</h2>
+	<h2 class="ui-title" data-bind="if: taskDetails().completed === false && taskDetails().starred === false">Current Task</h2>
 	<button type="button" class="ui-more ui-icon-overflow">Options</button>
     </header>
 
     <div id="tabsectionchanger" class="ui-content content-padding">
-	<!-- section changer has only one child. -->
 	<div>
 	    <section id="details" style="text-align:center" class="ui-section-active" >
 		<div class="ui-content"
