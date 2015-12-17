@@ -12,7 +12,7 @@ var DetailsTaskModel = function () {
 		} else {
 			tau.openPopup(optionsPopup);
 		}
-  };
+  }
   
   page.addEventListener( "pagebeforeshow", function() {
     var radius = window.innerHeight / 2 * 0.8;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/WunderGear" version="1.0.0" viewmodes="fullscreen">
-    <access origin="http://wunderlist.com" subdomains="true"/>
-    <access origin="wss://socket.wunderlist.com" subdomains="true"/>
-    <access origin="https://wunderlist.com" subdomains="true"/>
+    <access origin="http://wunderlist.com" subdomains="true"></access>
+    <access origin="wss://socket.wunderlist.com" subdomains="true"></access>
+    <access origin="https://wunderlist.com" subdomains="true"></access>
     <tizen:application id="DFa8rAonp3.WunderGear" package="DFa8rAonp3" required_version="2.2"/>
     <author>beni</author>
     <content src="index.html"/>

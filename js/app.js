@@ -1,5 +1,6 @@
 MainModel = function () {
   var self = this;
+  debugger;
 
   /* Observerables */
   self.screenTitle = ko.observable('Main Menu');
