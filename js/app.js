@@ -1,16 +1,27 @@
 MainModel = function () {
   var self = this;
-  debugger;
 
   /* Observerables */
   self.screenTitle = ko.observable('Main Menu');
   self.lists = ko.observableArray();
   self.loaded = ko.observable(false);
-  
+
+  self.hideProcessing = function() {
+      var page = event.target;
+      var processing = page.querySelector(".ui-processing");
+      processing.style.visibility = "hidden";
+  };
+
+  self.showProcessing = function() {
+      var page = event.target;
+      var processing = page.querySelector(".ui-processing");
+      processing.style.visibility = "";
+  };
   
   var saveLists = function(loadedLists) {
     mappedLists = loadedLists.map(function(l) { return { title: l.title, id: l.id }; });
     self.lists(mappedLists);
+    self.loaded(true);
   };
 
   WunderlistAPI.initialized.done(function() {

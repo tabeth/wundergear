@@ -21,12 +21,21 @@
 </head>
 
 <body>
-  <div class="ui-page ui-page-active" id="lists-view">
+<div class="ui-page ui-page-active" data-bind="event { pageshow: showProcessing, pagebeforehide: hideProcessing }"id="lists-view">
     <header class="ui-header">
       <h2 class="ui-title">Wundergear</h2>
     </header>
 
-    <div class="ui-content">
+    <div class="ui-content content-padding" data-bind="visible: loaded() == false">
+	<div class="small-processing-container">
+	    <div class="ui-processing" style="visibility:hidden;"></div>
+	    <div class="ui-processing-text">
+		Loading tasks
+	    </div>
+	</div>
+    </div>
+
+    <div class="ui-content" data-bind="visible: loaded()">
       <ul class="ui-listview">
         <!-- Generated dynamically using Wunderlist -->
         <!-- ko foreach: lists -->
