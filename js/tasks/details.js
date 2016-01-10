@@ -139,7 +139,7 @@ var DetailsTaskModel = function () {
 	tau.openPopup(popup);
     }
 
-    // Options popup handling
+    // Options pop up handling
     var page = document.querySelector("#details-for-task");
     var popup = page.querySelector("#task-options-popup");
     var handler = page.querySelector(".ui-more");

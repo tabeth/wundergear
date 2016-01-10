@@ -21,12 +21,13 @@
 </head>
 
 <body>
-<div class="ui-page ui-page-active" data-bind="event { pageshow: showProcessing, pagebeforehide: hideProcessing }"id="lists-view">
+<div id="lists-view" class="ui-page ui-page-active" data-bind="event { pageshow: showProcessing, pagebeforehide: hideProcessing }">
     <header class="ui-header">
       <h2 class="ui-title">Wundergear</h2>
+	  <button type="button" class="ui-more ui-icon-overflow">Options</button>
     </header>
 
-    <div class="ui-content content-padding" data-bind="visible: loaded() == false">
+    <div class="ui-content content-padding" style="visible: none" data-bind="visible: loaded() == false">
 	<div class="small-processing-container">
 	    <div class="ui-processing" style="visibility:hidden;"></div>
 	    <div class="ui-processing-text">
@@ -47,7 +48,15 @@
       </ul>
    </div>
 
-
+	<div id="main-options-popup" class="ui-popup" data-transition="slideup">
+		<div class="ui-popup-header">Options</div>
+		<div class="ui-popup-content">
+			<ul class="ui-listview">
+				<li><a href="#" data-bind="click: "addList">Add List</a></li>
+			</ul>
+		</div>
+	</div>
+	
   <script type="text/javascript" src="js/app.js"></script>
 
 </div>
